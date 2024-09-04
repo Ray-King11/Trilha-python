@@ -1,9 +1,12 @@
+# Loop Infinito
 while True:
     numero = int(input("Informe um número: "))
-
+     
+# Break
     if numero == 10:
         break
 
+# Continue
     if numero % 2 == 0:
         continue
 

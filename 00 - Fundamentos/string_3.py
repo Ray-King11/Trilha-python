@@ -1,3 +1,4 @@
+# Fatiamento de Strings
 nome = "Guilherme Arthur de Carvalho"
 
 print(nome[0])

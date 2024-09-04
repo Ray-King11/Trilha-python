@@ -1,3 +1,4 @@
+
 texto = input("Informe um texto: ")
 VOGAIS = "AEIOU"
 
@@ -10,6 +11,9 @@ else:
     print()  # adiciona uma quebra de linha
 
 
+# range(stop) -> range object
+# range(start, stop[, step]) -> range object
 # Exemplo utilizando a função built-in range
-for numero in range(0, 51, 5):
+# Exibindo a tabuada do 8
+for numero in range(0, 81, 8):
     print(numero, end=" ")

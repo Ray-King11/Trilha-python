@@ -1,5 +1,7 @@
+# Strigs triplas
 nome = "Guilherme"
 
+# Duas aspas
 mensagem = f"""
    Olá meu nome é {nome},
  Eu estou aprendendo Python.
@@ -7,6 +9,14 @@ mensagem = f"""
 """
 
 print(mensagem)
+
+# Aspas simples
+mesnsagem =f'''
+    Olá meu nome é {nome}, 
+Eu estou aprendendo Python.
+      Essa menssagem tem diferentes recuos. 
+'''
+print(mesnsagem)
 
 
 print(
