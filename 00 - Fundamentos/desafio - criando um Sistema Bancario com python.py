@@ -14,32 +14,32 @@ class ContasIterador:
         try:
             conta = self.contas[self._index]
             self._index += 1
-            return f"""\
+            return f"""\    
             Agência:\t{conta.agencia}
             Número:\t\t{conta.numero}
             Titular:\t{conta.cliente.nome}
             Saldo:\t\tR$ {conta.saldo:.2f}
-        """
+            """
         except IndexError:
             raise StopIteration
-    
-class PessoaFisica:
-    def __init__(self, nome, data_nascimento, cpf, endereco):
-        self.nome = nome
-        self.data_nascimento = data_nascimento
-        self.cpf = cpf
+
+class Cliente:
+    def __init__(self, endereco):
         self.endereco = endereco
         self.contas = []
 
-class Historico:
-    def __init__(self):
-        self.movimentacoes = []
+    def realizar_transacao(self, conta, transacao):
+        transacao.registrar(conta)
 
-    def adicionar_movimentacao(self, tipo, valor):
-        self.movimentacoes.append({"tipo": tipo, "valor": valor})
+    def adicionar_conta(self, conta):
+        self.contas.append(conta)
 
-    def gerar_relatorio(self):
-        return self.movimentacoes
+class PessoaFisica(Cliente):
+    def __init__(self, nome, data_nascimento, cpf, endereco):
+        super().__init__(endereco)
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.cpf = cpf
 
 class Conta:
     def __init__(self, numero, cliente):
@@ -72,6 +72,56 @@ class Conta:
     @property
     def historico(self):
         return self._historico
+    
+    def sacar(self, valor):
+        saldo = self.saldo
+        excedeu_saldo = valor > saldo
+
+class Historico:
+    def __init__(self):
+        self.movimentacoes = []
+
+    def adicionar_movimentacao(self, tipo, valor):
+        self.movimentacoes.append({"tipo": tipo, "valor": valor})
+
+    def gerar_relatorio(self):
+        return self.movimentacoes
+
+class Transacao(ABC):
+    @property
+    @abstractmethod
+    def valor(self):
+        pass
+
+    @abstractmethod
+    def registrar(self, conta):
+        pass
+
+class Saque(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+
+    @property
+    def valor(self):
+        return self._valor
+
+    def registrar(self, conta):
+        sucesso_transacao = conta.sacar(self.valor)
+        if sucesso_transacao:
+            conta.historico.adicionar_movimentacao("Saque", self.valor)
+
+class Deposito(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+
+    @property
+    def valor(self):
+        return self._valor
+
+    def registrar(self, conta):
+        sucesso_transacao = conta.depositar(self.valor)
+        if sucesso_transacao:
+            conta.historico.adicionar_movimentacao("Depósito", self.valor)
 
 class ContaBancariaCorrente(Conta):
     def __init__(self, numero, cliente, limite=500, limite_saques=3):
@@ -89,16 +139,23 @@ class ContaBancariaCorrente(Conta):
             print("Operação falhou! O valor informado é inválido.")
 
     def sacar(self, valor):
+        numero_saques = len(
+            [transacao for transacao in self.historico.movimentacoes if transacao["tipo"] == "Saque"]
+        )
+
+        excedeu_limite = valor > self.limite
+        excedeu_saques = numero_saques >= self.limite_saques
+
         if valor > 0:
             if valor > self._saldo:
                 print("Saldo insuficiente!")
                 return False
-            
-            if valor > self.limite:
+
+            if excedeu_limite:
                 print("O valor do saque excede o limite.")
                 return False
-            
-            if self.numero_saques >= self.limite_saques:
+
+            if excedeu_saques:
                 print("Número máximo de saques excedido.")
                 return False
 
@@ -106,8 +163,10 @@ class ContaBancariaCorrente(Conta):
             self._historico.adicionar_movimentacao("Saque", valor)
             self.numero_saques += 1
             print(f"Saque de R$ {valor:.2f} realizado com sucesso.")
+            return True
         else:
             print("Operação falhou! O valor informado é inválido.")
+            return False
 
     def consultar_extrato(self):
         print("\n================ EXTRATO ================")
@@ -218,4 +277,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
