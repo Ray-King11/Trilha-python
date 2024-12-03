@@ -3,6 +3,13 @@
 
 Este repositório contém uma coleção de projetos desenvolvidos em Python. Python é uma linguagem de programação de alto nível, amplamente utilizada por sua simplicidade e legibilidade. Ideal para desenvolvimento web, ciência de dados, automação e muito mais, Python é conhecido por sua sintaxe clara e sua vasta gama de bibliotecas e frameworks.
 
+| Reporsitories |  |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| Estudos-logica-com-python | [link](https://github.com/Ray-King11/Estudos-logica-com-python.git)   |
+| Resolvendo-Codigos-Python-com-o-ChatGPT | [link](https://github.com/Ray-King11/Resolvendo-Codigos-Python-com-o-ChatGPT.git) |
+
+
+
 ## Recursos:
 - **Versão**: Python 3.x
 - **Bibliotecas Utilizadas**: [listar bibliotecas]
