@@ -1,4 +1,4 @@
-# Trilha Python DIO
+# Trilha Python
 # Repositório de Projetos em Python
 
 Este repositório contém uma coleção de projetos desenvolvidos em Python. Python é uma linguagem de programação de alto nível, amplamente utilizada por sua simplicidade e legibilidade. Ideal para desenvolvimento web, ciência de dados, automação e muito mais, Python é conhecido por sua sintaxe clara e sua vasta gama de bibliotecas e frameworks.
