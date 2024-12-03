@@ -427,6 +427,6 @@ Entender as bibliotecas e como elas operam é fundamental para qualquer desenvol
 - **Versão**: Python 3.13.0.
 - **Bibliotecas **: [listar bibliotecas]
 - **Documentação**: Cada projeto inclui uma documentação detalhada sobre como instalar e executar o código.
--
--  🙂
+
+  Sinta-se a vontade para contribuir,  contribuições são sempre bem-vindas!🙂
 
